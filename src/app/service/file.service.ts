@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, map, shareReplay } from 'rxjs/operators';
+import { catchError, concatMap, defaultIfEmpty, map, shareReplay } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
 import { appConfig } from '../../environments/app-config';
@@ -9,6 +9,7 @@ import { appConfig } from '../../environments/app-config';
 export class INode {
   id: string; // ID
   name: string; // Name
+  parent: string; // Parent
   type: string; // Type
   data: any; // Content
   atime: number; // Access Time
@@ -24,79 +25,91 @@ export class FileService {
   private root = appConfig.apiRoot;
   private fetching: Map<string, Observable<INode[]>> = new Map();
 
-  public getDir(id: string, update = false): Observable<INode[]> {
-    const ob = this.getINode(id).pipe(
-      concatMap(node => {
-        const files: object = node.data;
-        const obs = [];
-        for (const filesKey of Object.keys(files)) {
-          obs.push(this.getINode(files[filesKey]));
-        }
-        return forkJoin(obs);
-      })
-    );
-    return (update === true)
-      ? this.removeINode(id).pipe(concatMap(_ => ob))
-      : ob;
+  public getDir(id: string, refresh = false): Observable<INode[]> {
+    const handler = node => {
+      return forkJoin(
+        Object.keys(node.data).map(fileId => this.getINode(node.data[fileId]))
+      ).pipe(
+        defaultIfEmpty([])
+      );
+    };
+    return (refresh)
+      ? this.removeINode(id).pipe(
+        concatMap(_ => this.fetchINode(id)),
+        concatMap(handler)
+      ) : this.getINode(id).pipe(
+        concatMap(handler)
+      );
   }
-  public getINode(id: string, update = false): Observable<INode> {
-    const ob = this.storageService.getItem<INode>(id).pipe(
-      concatMap(node => {
-        if (node) {
-          return of(node);
-        } else {
-          return this.fetchINode(id);
-        }
-      })
-    );
-    return (update === true)
-      ? this.removeINode(id).pipe(concatMap(_ => ob))
-      : ob;
-  }
-  public setINode(id: string, node: INode): Observable<INode> {
-    return this.storageService.setItem<INode>(id, node);
+  public getINode(id: string, refresh = false): Observable<INode> {
+    return (refresh)
+      ? this.removeINode(id).pipe(
+        concatMap(_ => this.fetchINode(id))
+      ) : this.storageService.getItem<INode>(id).pipe(
+        concatMap(node => node ? of(node) : this.fetchINode(id))
+      );
   }
   public removeINode(id: string): Observable<void> {
     return this.storageService.getItem<INode>(id).pipe(
-      concatMap(node => {
-        if (node && node.type === 'dir') {
-          const files: object = node.data;
-          const obs = [];
-          for (const filesKey of Object.keys(files)) {
-            obs.push(this.removeINode(files[filesKey]));
-          }
-          forkJoin(obs).subscribe();
-        }
-        return this.storageService.removeItem(id);
-      })
+      concatMap(node => (!node || node.type !== 'dir') ? of(node) :
+        forkJoin(
+          Object.keys(node.data).map(fileId => this.removeINode(node.data[fileId]))
+        ).pipe(
+          defaultIfEmpty()
+        )
+      ),
+      concatMap(_ => this.storageService.removeItem(id))
     );
   }
 
-  public fetchDir(path: string): Observable<INode[]> {
-    const ob = this.http.get<INode[]>(this.root + path).pipe(
-      concatMap(nodes => {
-        const obs = [];
-        nodes.forEach(node => {
-          obs.push(this.setINode(node.id, node));
-        });
-        this.fetching.delete(path);
-        return forkJoin(obs);
-      }),
-      catchError(err => {
-        this.handleError(err);
-        return throwError(err);
-      }),
-      shareReplay(1),
-    );
-    this.fetching.set(path, ob);
-    return ob;
+  private setINode(id: string, node: INode): Observable<INode> {
+    return this.storageService.setItem<INode>(id, node);
   }
-  public fetchINode(id: string): Observable<INode> {
-    const idx = id.lastIndexOf('/');
-    const path = (idx < 0) ? '' : id.substr(0, idx);
-    return (this.fetching.has(path) ? this.fetching.get(path) : this.fetchDir(path)).pipe(
-      map(nodes => nodes.find(node => node.id === id))
-    );
+  private fetchDir(path: string): Observable<INode[]> {
+    if (this.fetching.has(path)) {
+      return this.fetching.get(path);
+    } else {
+      const ob = this.http.get<INode[]>(this.root + path).pipe(
+        concatMap(nodes => {
+          const obs = [];
+          nodes.forEach(node => {
+            obs.push(this.setINode(node.id, node));
+          });
+          this.fetching.delete(path);
+          return forkJoin(obs);
+        }),
+        catchError(err => {
+          this.handleError(err);
+          return throwError(err);
+        }),
+        shareReplay(1),
+      );
+      this.fetching.set(path, ob);
+      return ob;
+    }
+  }
+  private fetchINode(id: string): Observable<INode> {
+    if (id === '/') {
+      return this.fetchDir('/').pipe(
+        concatMap(nodes => {
+          const rootNode: INode = {
+            id: '/', name: '/',
+            atime: 0, mtime: 0, ctime: 0,
+            parent: null,
+            type: '/',
+            data: []
+          };
+          nodes.forEach(n => rootNode.data[n.name] = n.id);
+          return this.setINode('/', rootNode);
+        })
+      );
+    } else {
+      const idx = id.lastIndexOf('/');
+      const path = (idx < 0) ? '/' : id.substr(0, idx);
+      return this.fetchDir(path).pipe(
+        map(nodes => nodes.find(node => node.id === id))
+      );
+    }
   }
 
   private handleError(err) { }
