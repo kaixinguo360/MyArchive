@@ -6,7 +6,5 @@
   <li *ngIf="parent">
     <a routerLink="dir" [queryParams]="{path:parent}" >.. (Parent Directory)</a>
   </li>
-  <li *ngFor="let node of nodes">
-    <app-card [node]="node"></app-card>
-  </li>
+  <app-card *ngFor="let node of nodes" [node]="node"></app-card>
 </ul>

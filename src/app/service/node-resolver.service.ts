@@ -2,11 +2,11 @@ import { ComponentFactory, ComponentFactoryResolver, Injectable, Type } from '@a
 
 import { TypeInfos } from '../../environments/type-infos';
 import { INode } from './file.service';
-import { NodeCard } from '../com/card/card.component';
+import { CardContent } from '../com/card/card.component';
 
 export interface TypeInfo {
   type: string;
-  card: Type<NodeCard>;
+  cardContent: Type<CardContent>;
   ext?: RegExp;
 }
 
@@ -15,11 +15,11 @@ export interface TypeInfo {
 })
 export class NodeResolver {
 
-  public resolveCardFactory(node: INode): ComponentFactory<any> {
-    return this.componentFactoryResolver.resolveComponentFactory(this.resolveNodeType(node).card);
+  public resolveCardContentFactory(node: INode): ComponentFactory<any> {
+    return this.componentFactoryResolver.resolveComponentFactory(this.resolveTypeInfo(node).cardContent);
   }
 
-  public resolveNodeType(node: INode): TypeInfo {
+  public resolveTypeInfo(node: INode): TypeInfo {
     if (TypeInfos.has(node.type)) {
       return TypeInfos.get(node.type);
     } else {

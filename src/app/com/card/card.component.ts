@@ -3,27 +3,28 @@ import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/
 import { INode } from '../../service/file.service';
 import { NodeResolver } from '../../service/node-resolver.service';
 
-export interface NodeCard {
+export interface CardContent {
   node: INode;
 }
 
 @Component({
   selector: 'app-card',
-  template: '<ng-container #card></ng-container>'
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
 
   @Input() node: INode;
-  @ViewChild('card', { read: ViewContainerRef, static: true }) card: ViewContainerRef;
+  @ViewChild('content', { read: ViewContainerRef, static: true }) content: ViewContainerRef;
 
   constructor(
     private nodeResolver: NodeResolver
   ) { }
 
   ngOnInit() {
-    const factory = this.nodeResolver.resolveCardFactory(this.node);
-    const componentRef = this.card.createComponent(factory);
-    (componentRef.instance as NodeCard).node = this.node;
+    const factory = this.nodeResolver.resolveCardContentFactory(this.node);
+    const componentRef = this.content.createComponent(factory);
+    (componentRef.instance as CardContent).node = this.node;
   }
 
 }

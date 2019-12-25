@@ -7,15 +7,15 @@ export const TypeInfos: Map<string, TypeInfo> = new Map<string, TypeInfo>();
 
 TypeInfos.set('default', {
   type: 'default',
-  card: FileCardComponent,
+  cardContent: FileCardComponent,
 });
 TypeInfos.set('dir', {
   type: 'dir',
-  card: DirCardComponent,
+  cardContent: DirCardComponent,
 });
 TypeInfos.set('img', {
   type: 'img',
-  card: ImageCardComponent,
+  cardContent: ImageCardComponent,
   ext: /jpg|jpeg|png|gif|bmp/
 });
 
