@@ -2,7 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatProgressBarModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './page/app.component';
@@ -11,6 +17,7 @@ import { CardComponent } from './com/card/card.component';
 import { DirCardComponent } from './com/card/dir-card/dir-card.component';
 import { FileCardComponent } from './com/card/file-card/file-card.component';
 import { ImageCardComponent } from './com/card/image-card/image-card.component';
+import { MasonryComponent } from './com/masonry/masonry.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +25,8 @@ import { ImageCardComponent } from './com/card/image-card/image-card.component';
     CardComponent,
     DirCardComponent,
     FileCardComponent,
-    ImageCardComponent
+    ImageCardComponent,
+    MasonryComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +34,13 @@ import { ImageCardComponent } from './com/card/image-card/image-card.component';
     BrowserAnimationsModule,
     MatCardModule,
     AppRoutingModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

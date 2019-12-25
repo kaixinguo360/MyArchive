@@ -14,19 +14,22 @@ export class AppComponent {
 
   path;
   parent;
+  loading = true;
   nodes: INode[] = [];
   sub: Subscription;
 
+  back() { window.history.back(); }
   updateContent(refresh = false): void {
     if (this.sub) { this.sub.unsubscribe(); }
     this.nodes.length = 0;
     const path = this.route.snapshot.queryParamMap.get('path');
-    this.parent = this.path;
+    this.loading = true;
     this.path = !path ? '/' : path === '' ? '/' : path;
     this.sub = this.fileService.getDir(this.path, refresh).pipe(
       tap(nodes => this.nodes = nodes),
       concatMap(_ => this.fileService.getINode(this.path)),
-      tap(node => this.parent = node.parent)
+      tap(node => this.parent = node.parent),
+      tap(_ => this.loading = false)
     ).subscribe();
   }
 
