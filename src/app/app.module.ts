@@ -5,11 +5,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './comp/app.component';
+import { AppComponent } from './page/app.component';
+import { CardComponent } from './com/card/card.component';
+
+import { DirCardComponent } from './com/card/dir-card/dir-card.component';
+import { FileCardComponent } from './com/card/file-card/file-card.component';
+import { ImageCardComponent } from './com/card/image-card/image-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardComponent,
+    DirCardComponent,
+    FileCardComponent,
+    ImageCardComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +28,14 @@ import { AppComponent } from './comp/app.component';
     AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DirCardComponent,
+    FileCardComponent,
+    ImageCardComponent,
+  ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+  }
+}

@@ -4,7 +4,7 @@ import { forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, concatMap, defaultIfEmpty, map, shareReplay } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
-import { appConfig } from '../../environments/app-config';
+import { AppConfig } from '../../environments/app-config';
 
 export class INode {
   id: string; // ID
@@ -22,7 +22,7 @@ export class INode {
 })
 export class FileService {
 
-  private root = appConfig.apiRoot;
+  private root = AppConfig.apiRoot;
   private fetching: Map<string, Observable<INode[]>> = new Map();
 
   public getDir(id: string, refresh = false): Observable<INode[]> {

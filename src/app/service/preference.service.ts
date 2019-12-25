@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { appConfig } from '../../environments/app-config';
+import { AppConfig } from '../../environments/app-config';
 import { Order } from '../order';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Order } from '../order';
 })
 export class PreferenceService {
 
-  defaultOrder = appConfig.defaultOrder;
+  defaultOrder = AppConfig.defaultOrder;
 
   public getOrder(): Order {
     const order = this.getPreference('order', this.defaultOrder);

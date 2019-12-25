@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgForage } from 'ngforage';
 import { from, Observable } from 'rxjs';
 
-import { appConfig } from '../../environments/app-config';
+import { AppConfig } from '../../environments/app-config';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,6 @@ export class StorageService {
   constructor(
     private readonly ngf: NgForage
   ) {
-    this.ngf.name = appConfig.iNodeStore;
+    this.ngf.name = AppConfig.iNodeStore;
   }
 }
