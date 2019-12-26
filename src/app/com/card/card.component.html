@@ -2,8 +2,8 @@
      [style.width]="width+'px'"
      [style.max-width]="maxWidth+'px'">
   <div class="card-content hide-overflow"
-       [style.height]="(height-footHeight)+'px'"
-       [style.max-height]="(maxHeight-footHeight)+'px'">
+       [style.height]="contentHeight+'px'"
+       [style.max-height]="contentMaxHeight+'px'">
     <ng-container #content></ng-container>
   </div>
   <div class="card-foot hide-overflow"

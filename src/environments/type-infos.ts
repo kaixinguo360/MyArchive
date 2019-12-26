@@ -19,6 +19,6 @@ TypeInfos.set('img', {
   name: 'Image File',
   cardContent: ImageCardComponent,
   icon: 'photo',
-  ext: /jpg|jpeg|png|gif|bmp/,
+  ext: /jpg|jpeg|png|gif|bmp|webp/,
 });
 

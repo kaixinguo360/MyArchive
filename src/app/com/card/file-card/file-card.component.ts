@@ -10,10 +10,12 @@ import { CardContent } from '../card.component';
 })
 export class FileCardComponent implements CardContent, OnInit {
   @Input() node: INode;
+  @Input() width: number;
+  @Input() height: number;
+  @Input() maxWidth: number;
+  @Input() maxHeight: number;
 
   constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
