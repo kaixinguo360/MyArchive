@@ -16,7 +16,7 @@ export interface CardContent {
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit, OnChanges {
+export class CardComponent implements OnChanges {
 
   @Input() node: INode;
   @Input() width: number;
@@ -33,17 +33,13 @@ export class CardComponent implements OnInit, OnChanges {
     private nodeResolver: NodeResolver
   ) { }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
     this.createContent();
     this.resize();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.node) { this.createContent(); }
-    this.resize();
-  }
-
   private createContent() {
+    if (this.content) { this.contentHost.remove(); }
     const factory = this.nodeResolver.resolveCardContentFactory(this.node);
     const componentRef = this.contentHost.createComponent(factory);
     this.content = (componentRef.instance as CardContent);
