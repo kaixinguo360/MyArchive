@@ -1,0 +1,13 @@
+.container {
+  padding: 8px 10px;
+}
+
+.title {
+  font-size: medium;
+}
+
+.small {
+  color: gray;
+  font-size: small;
+  text-align: right;
+}

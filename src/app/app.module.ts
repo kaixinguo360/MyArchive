@@ -18,6 +18,7 @@ import { DirCardComponent } from './com/card/dir-card/dir-card.component';
 import { FileCardComponent } from './com/card/file-card/file-card.component';
 import { ImageCardComponent } from './com/card/image-card/image-card.component';
 import { MasonryComponent } from './com/masonry/masonry.component';
+import { CardFootComponent } from './com/card/card-foot/card-foot.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MasonryComponent } from './com/masonry/masonry.component';
     FileCardComponent,
     ImageCardComponent,
     MasonryComponent,
+    CardFootComponent,
   ],
   imports: [
     BrowserModule,
