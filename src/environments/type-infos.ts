@@ -6,16 +6,19 @@ import { ImageCardComponent } from '../app/com/card/image-card/image-card.compon
 export const TypeInfos: Map<string, TypeInfo> = new Map<string, TypeInfo>();
 
 TypeInfos.set('default', {
-  type: 'default',
+  name: 'Unknown File',
   cardContent: FileCardComponent,
+  icon: 'insert_drive_file',
 });
 TypeInfos.set('dir', {
-  type: 'dir',
+  name: 'Directory',
   cardContent: DirCardComponent,
+  icon: 'folder',
 });
 TypeInfos.set('img', {
-  type: 'img',
+  name: 'Image File',
   cardContent: ImageCardComponent,
-  ext: /jpg|jpeg|png|gif|bmp/
+  icon: 'photo',
+  ext: /jpg|jpeg|png|gif|bmp/,
 });
 

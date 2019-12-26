@@ -5,8 +5,9 @@ import { INode } from './file.service';
 import { CardContent } from '../com/card/card.component';
 
 export interface TypeInfo {
-  type: string;
+  name: string;
   cardContent: Type<CardContent>;
+  icon: string;
   ext?: RegExp;
 }
 
