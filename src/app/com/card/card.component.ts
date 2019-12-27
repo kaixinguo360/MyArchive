@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, SimpleChanges, ViewChild, ViewContainerRef
 import { INode } from '../../service/file.service';
 import { NodeResolver } from '../../service/node-resolver.service';
 
-export interface CardContent {
+export interface ContentPreview {
   node: INode;
   width: number;
   height: number;
@@ -27,7 +27,7 @@ export class CardComponent implements OnChanges {
   contentHeight: number;
   contentMaxHeight: number;
   footHeight = 64;
-  private content: CardContent;
+  private content: ContentPreview;
 
   constructor(
     private nodeResolver: NodeResolver
@@ -42,7 +42,7 @@ export class CardComponent implements OnChanges {
     if (this.content) { this.contentHost.remove(); }
     const factory = this.nodeResolver.resolveCardContentFactory(this.node);
     const componentRef = this.contentHost.createComponent(factory);
-    this.content = (componentRef.instance as CardContent);
+    this.content = (componentRef.instance as ContentPreview);
   }
 
   private resize() {

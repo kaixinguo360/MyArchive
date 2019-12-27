@@ -3,16 +3,16 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { concatMap, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import { FileService, INode } from '../service/file.service';
+import { FileService, INode } from '../../service/file.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './dir.component.html',
+  styleUrls: ['./dir.component.css']
 })
-export class AppComponent {
+export class DirComponent {
 
-  path;
+  id;
   parent;
   loading = true;
   nodes: INode[] = [];
@@ -22,12 +22,12 @@ export class AppComponent {
   updateContent(refresh = false): void {
     if (this.sub) { this.sub.unsubscribe(); }
     this.nodes.length = 0;
-    const path = this.route.snapshot.queryParamMap.get('path');
+    const id = this.route.snapshot.queryParamMap.get('id');
     this.loading = true;
-    this.path = !path ? '/' : path === '' ? '/' : path;
-    this.sub = this.fileService.getDir(this.path, refresh).pipe(
+    this.id = !id ? '/' : id === '' ? '/' : id;
+    this.sub = this.fileService.getDir(this.id, refresh).pipe(
       tap(nodes => this.nodes = nodes),
-      concatMap(_ => this.fileService.getINode(this.path)),
+      concatMap(_ => this.fileService.getINode(this.id)),
       tap(node => this.parent = node.parent),
       tap(_ => this.loading = false)
     ).subscribe();

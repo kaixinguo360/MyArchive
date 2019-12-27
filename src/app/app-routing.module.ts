@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent } from './page/app.component';
+import { DirComponent } from './page/dir/dir.component';
 
 const routes: Routes = [
-  { path: 'dir', component: AppComponent },
+  { path: 'dir', component: DirComponent },
   { path: '', redirectTo: '/dir', pathMatch: 'full' },
   { path: '**', redirectTo: '/dir', pathMatch: 'full' }
 ];

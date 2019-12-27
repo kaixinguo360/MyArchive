@@ -11,24 +11,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './page/app.component';
-import { CardComponent } from './com/card/card.component';
-
-import { DirCardComponent } from './com/card/dir-card/dir-card.component';
-import { FileCardComponent } from './com/card/file-card/file-card.component';
-import { ImageCardComponent } from './com/card/image-card/image-card.component';
+import { DirComponent } from './page/dir/dir.component';
+import { FileComponent } from './page/file/file.component';
 import { MasonryComponent } from './com/masonry/masonry.component';
+
+import { DirPreviewComponent } from './com/content-preview/dir-preview/dir-preview.component';
+import { FilePreviewComponent } from './com/content-preview/file-preview/file-preview.component';
+import { ImagePreviewComponent } from './com/content-preview/image-preview/image-preview.component';
 import { CardFootComponent } from './com/card/card-foot/card-foot.component';
+import { CardComponent } from './com/card/card.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    DirComponent,
     CardComponent,
-    DirCardComponent,
-    FileCardComponent,
-    ImageCardComponent,
+    DirPreviewComponent,
+    FilePreviewComponent,
+    ImagePreviewComponent,
     MasonryComponent,
     CardFootComponent,
+    FileComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,11 +47,11 @@ import { CardFootComponent } from './com/card/card-foot/card-foot.component';
     MatProgressBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [DirComponent],
   entryComponents: [
-    DirCardComponent,
-    FileCardComponent,
-    ImageCardComponent,
+    DirPreviewComponent,
+    FilePreviewComponent,
+    ImagePreviewComponent,
   ]
 })
 export class AppModule {

@@ -1,14 +1,14 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 import { INode } from '../../../service/file.service';
-import { CardContent } from '../card.component';
+import { ContentPreview } from '../../card/card.component';
 
 @Component({
   selector: 'app-image-card',
-  templateUrl: './image-card.component.html',
-  styleUrls: ['./image-card.component.css']
+  templateUrl: './image-preview.component.html',
+  styleUrls: ['./image-preview.component.css']
 })
-export class ImageCardComponent implements CardContent {
+export class ImagePreviewComponent implements ContentPreview {
   @Input() node: INode;
   @Input() width: number;
   @Input() height: number;

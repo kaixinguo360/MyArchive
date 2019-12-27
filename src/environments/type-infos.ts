@@ -1,23 +1,23 @@
 import { TypeInfo } from '../app/service/node-resolver.service';
-import { DirCardComponent } from '../app/com/card/dir-card/dir-card.component';
-import { FileCardComponent } from '../app/com/card/file-card/file-card.component';
-import { ImageCardComponent } from '../app/com/card/image-card/image-card.component';
+import { DirPreviewComponent } from '../app/com/content-preview/dir-preview/dir-preview.component';
+import { FilePreviewComponent } from '../app/com/content-preview/file-preview/file-preview.component';
+import { ImagePreviewComponent } from '../app/com/content-preview/image-preview/image-preview.component';
 
 export const TypeInfos: Map<string, TypeInfo> = new Map<string, TypeInfo>();
 
 TypeInfos.set('default', {
   name: 'Unknown File',
-  cardContent: FileCardComponent,
+  preview: FilePreviewComponent,
   icon: 'insert_drive_file',
 });
 TypeInfos.set('dir', {
   name: 'Directory',
-  cardContent: DirCardComponent,
+  preview: DirPreviewComponent,
   icon: 'folder',
 });
 TypeInfos.set('img', {
   name: 'Image File',
-  cardContent: ImageCardComponent,
+  preview: ImagePreviewComponent,
   icon: 'photo',
   ext: /jpg|jpeg|png|gif|bmp|webp/,
 });

@@ -4,7 +4,7 @@
       <button type="button" mat-icon-button
               *ngIf="parent && !loading"
               routerLink="dir"
-              [queryParams]="{path:parent}">
+              [queryParams]="{id:parent}">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <button type="button" mat-icon-button
@@ -12,7 +12,7 @@
               (click)="back()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <span class="title">{{path}}</span>
+      <span class="title">{{id}}</span>
       <button type="button" mat-icon-button>
         <mat-icon>sort</mat-icon>
       </button>
