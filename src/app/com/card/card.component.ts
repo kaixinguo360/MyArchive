@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { INode } from '../../service/file.service';
 import { NodeResolver } from '../../service/node-resolver.service';
@@ -46,13 +46,18 @@ export class CardComponent implements OnChanges {
   }
 
   private resize() {
-    this.contentHeight = this.height - this.footHeight;
-    this.contentMaxHeight = this.maxHeight - this.footHeight;
     this.content.node = this.node;
+
     this.content.width = this.width;
     this.content.maxWidth = this.maxWidth;
-    this.content.height = this.contentHeight;
-    this.content.maxHeight = this.contentMaxHeight;
+    if (this.height) {
+      this.contentHeight = this.height - this.footHeight;
+      this.content.height = this.contentHeight;
+    }
+    if (this.maxHeight) {
+      this.contentMaxHeight = this.maxHeight - this.footHeight;
+      this.content.maxHeight = this.contentMaxHeight;
+    }
   }
 
 }
