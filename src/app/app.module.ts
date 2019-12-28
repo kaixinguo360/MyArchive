@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import * as Hammer from 'hammerjs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { DirComponent } from './page/dir/dir.component';
@@ -21,6 +22,14 @@ import { DirPreviewComponent } from './com/content-preview/dir-preview/dir-previ
 import { FilePreviewComponent } from './com/content-preview/file-preview/file-preview.component';
 import { ImagePreviewComponent } from './com/content-preview/image-preview/image-preview.component';
 import { FileDetailComponent } from './com/content-detail/file-detail/file-detail.component';
+
+export class MyHammerConfig extends HammerGestureConfig  {
+  buildHammer(element: HTMLElement) {
+    return new Hammer(element, {
+      touchAction: 'pan-y'
+    });
+  }
+}
 
 @NgModule({
   declarations: [
@@ -48,7 +57,10 @@ import { FileDetailComponent } from './com/content-detail/file-detail/file-detai
     MatListModule,
     MatProgressBarModule
   ],
-  providers: [],
+  providers: [{
+    provide: HAMMER_GESTURE_CONFIG,
+    useClass: MyHammerConfig
+  }],
   bootstrap: [DirComponent],
   entryComponents: [
     FileViewerComponent,

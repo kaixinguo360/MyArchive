@@ -1,4 +1,6 @@
 <div class="overlay"
+     (swiperight)="previous()"
+     (swipeleft)="next()"
      (click)="fileViewer.close()">
   <ng-container #content></ng-container>
 </div>
