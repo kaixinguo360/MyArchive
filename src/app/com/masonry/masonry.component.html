@@ -1,5 +1,5 @@
 <div class="card-container">
-  <div *ngFor="let node of nodes" class="card-warp">
+  <div *ngFor="let node of nodes" class="card-warp" (click)="click(node)">
     <app-card [node]="node" [width]="300" [maxHeight]="400"></app-card>
   </div>
 </div>

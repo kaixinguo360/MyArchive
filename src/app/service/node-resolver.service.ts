@@ -1,12 +1,14 @@
 import { ComponentFactory, ComponentFactoryResolver, Injectable, Type } from '@angular/core';
 
-import { TypeInfos } from '../../environments/type-infos';
 import { INode } from './file.service';
-import { ContentPreview } from '../com/card/card.component';
+import { TypeInfos } from '../../environments/type-infos';
+import { ContentPreview } from '../com/content-preview/content-preview';
+import { ContentDetail } from '../com/content-detail/content-detail';
 
 export interface TypeInfo {
   name: string;
   preview: Type<ContentPreview>;
+  detail: Type<ContentDetail>;
   icon: string;
   ext?: RegExp;
 }
@@ -16,8 +18,12 @@ export interface TypeInfo {
 })
 export class NodeResolver {
 
-  public resolveCardContentFactory(node: INode): ComponentFactory<any> {
+  public resolveContentPreviewFactory(node: INode): ComponentFactory<any> {
     return this.componentFactoryResolver.resolveComponentFactory(this.resolveTypeInfo(node).preview);
+  }
+
+  public resolveContentDetailFactory(node: INode): ComponentFactory<any> {
+    return this.componentFactoryResolver.resolveComponentFactory(this.resolveTypeInfo(node).detail);
   }
 
   public resolveTypeInfo(node: INode): TypeInfo {

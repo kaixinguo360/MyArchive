@@ -12,25 +12,27 @@ import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { DirComponent } from './page/dir/dir.component';
-import { FileComponent } from './page/file/file.component';
+import { CardFootComponent } from './com/card/card-foot/card-foot.component';
+import { CardComponent } from './com/card/card.component';
 import { MasonryComponent } from './com/masonry/masonry.component';
+import { FileViewerComponent } from './com/file-viewer/file-viewer.component';
 
 import { DirPreviewComponent } from './com/content-preview/dir-preview/dir-preview.component';
 import { FilePreviewComponent } from './com/content-preview/file-preview/file-preview.component';
 import { ImagePreviewComponent } from './com/content-preview/image-preview/image-preview.component';
-import { CardFootComponent } from './com/card/card-foot/card-foot.component';
-import { CardComponent } from './com/card/card.component';
+import { FileDetailComponent } from './com/content-detail/file-detail/file-detail.component';
 
 @NgModule({
   declarations: [
     DirComponent,
     CardComponent,
+    CardFootComponent,
+    MasonryComponent,
+    FileViewerComponent,
     DirPreviewComponent,
     FilePreviewComponent,
     ImagePreviewComponent,
-    MasonryComponent,
-    CardFootComponent,
-    FileComponent,
+    FileDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +51,11 @@ import { CardComponent } from './com/card/card.component';
   providers: [],
   bootstrap: [DirComponent],
   entryComponents: [
+    FileViewerComponent,
     DirPreviewComponent,
     FilePreviewComponent,
     ImagePreviewComponent,
+    FileDetailComponent,
   ]
 })
 export class AppModule {

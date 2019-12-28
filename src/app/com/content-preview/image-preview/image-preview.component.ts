@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 import { INode } from '../../../service/file.service';
-import { ContentPreview } from '../../card/card.component';
+import { ContentPreview } from '../content-preview';
 
 @Component({
   selector: 'app-image-card',

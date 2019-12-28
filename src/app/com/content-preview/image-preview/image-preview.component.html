@@ -1,9 +1,7 @@
-<a [href]="node.data">
-  <div #container class="img-container hide-overflow"
-       [style.height]="height+'px'"
-       [style.max-height]="maxHeight+'px'">
-    <img #img class="img hide-overflow" [src]="node.data" [alt]="node.name"
-         (load)="onload()">
-    <div class="shadow" *ngIf="this.height||overflow"></div>
-  </div>
-</a>
+<div #container class="img-container hide-overflow"
+     [style.height]="height+'px'"
+     [style.max-height]="maxHeight+'px'">
+  <img #img class="img hide-overflow" [src]="node.data" [alt]="node.name"
+       (load)="onload()">
+  <div class="shadow" *ngIf="this.height||overflow"></div>
+</div>

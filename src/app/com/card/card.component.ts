@@ -2,14 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, ViewChild, ViewContainerRef
 
 import { INode } from '../../service/file.service';
 import { NodeResolver } from '../../service/node-resolver.service';
-
-export interface ContentPreview {
-  node: INode;
-  width: number;
-  height: number;
-  maxWidth: number;
-  maxHeight: number;
-}
+import { ContentPreview } from '../content-preview/content-preview';
 
 @Component({
   selector: 'app-card',
@@ -23,10 +16,10 @@ export class CardComponent implements OnChanges {
   @Input() maxWidth: number;
   @Input() height: number;
   @Input() maxHeight: number;
-  @ViewChild('content', { read: ViewContainerRef, static: true }) contentHost: ViewContainerRef;
   contentHeight: number;
   contentMaxHeight: number;
   footHeight = 64;
+  @ViewChild('content', { read: ViewContainerRef, static: true })contentHost: ViewContainerRef;
   private content: ContentPreview;
 
   constructor(
@@ -40,7 +33,7 @@ export class CardComponent implements OnChanges {
 
   private createContent() {
     if (this.content) { this.contentHost.remove(); }
-    const factory = this.nodeResolver.resolveCardContentFactory(this.node);
+    const factory = this.nodeResolver.resolveContentPreviewFactory(this.node);
     const componentRef = this.contentHost.createComponent(factory);
     this.content = (componentRef.instance as ContentPreview);
   }

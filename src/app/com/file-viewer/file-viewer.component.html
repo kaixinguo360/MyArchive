@@ -1,0 +1,10 @@
+<div class="overlay"
+     (click)="fileViewer.close()">
+  <ng-container #content></ng-container>
+</div>
+<button mat-icon-button class="button previous" (click)="previous()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<button mat-icon-button class="button next" (click)="next()">
+  <mat-icon>arrow_forward</mat-icon>
+</button>

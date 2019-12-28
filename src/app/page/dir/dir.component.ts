@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { concatMap, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { FileService, INode } from '../../service/file.service';
+import { FileViewer } from '../../com/file-viewer/file-viewer.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './dir.component.html',
   styleUrls: ['./dir.component.css']
 })
-export class DirComponent {
+export class DirComponent implements OnInit {
 
   id;
   parent;
   loading = true;
   nodes: INode[] = [];
   sub: Subscription;
+  @ViewChild('popupContainer', { read: ViewContainerRef, static: true }) popupContainerRef: ViewContainerRef;
 
   back() { window.history.back(); }
   updateContent(refresh = false): void {
@@ -37,6 +39,7 @@ export class DirComponent {
     private route: ActivatedRoute,
     private router: Router,
     private fileService: FileService,
+    private popupService: FileViewer,
   ) {
     this.router.events
       .subscribe(
@@ -46,5 +49,9 @@ export class DirComponent {
           }
         }
       );
+  }
+
+  ngOnInit() {
+    this.popupService.popupContainerRef = this.popupContainerRef;
   }
 }
