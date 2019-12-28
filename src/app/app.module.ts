@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import * as Hammer from 'hammerjs';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { DirComponent } from './page/dir/dir.component';
@@ -60,6 +62,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MatProgressBarModule,
     MatMenuModule,
     MatSnackBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{
     provide: HAMMER_GESTURE_CONFIG,

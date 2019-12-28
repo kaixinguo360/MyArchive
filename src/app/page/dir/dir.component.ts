@@ -20,7 +20,10 @@ export class DirComponent implements OnInit {
   sub: Subscription;
   @ViewChild('popupContainer', { read: ViewContainerRef, static: true }) popupContainerRef: ViewContainerRef;
 
-  back() { window.history.back(); }
+  back() {
+    window.stop();
+    window.history.back();
+  }
   updateContent(refresh = false): void {
     if (this.sub) { this.sub.unsubscribe(); }
     this.nodes.length = 0;
