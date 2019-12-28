@@ -7,6 +7,7 @@ import { ContentDetail } from '../com/content-detail/content-detail';
 
 export interface TypeInfo {
   name: string;
+  id: string;
   preview: Type<ContentPreview>;
   detail: Type<ContentDetail>;
   icon: string;

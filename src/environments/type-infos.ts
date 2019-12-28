@@ -7,18 +7,21 @@ export const TypeInfos: Map<string, TypeInfo> = new Map<string, TypeInfo>();
 
 TypeInfos.set('default', {
   name: 'Unknown File',
+  id: 'file',
   preview: FilePreviewComponent,
   detail: FilePreviewComponent,
   icon: 'insert_drive_file',
 });
 TypeInfos.set('dir', {
   name: 'Directory',
+  id: 'dir',
   preview: DirPreviewComponent,
   detail: DirPreviewComponent,
   icon: 'folder',
 });
 TypeInfos.set('img', {
   name: 'Image File',
+  id: 'img',
   preview: ImagePreviewComponent,
   detail: ImagePreviewComponent,
   icon: 'photo',

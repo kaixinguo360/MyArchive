@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 import { forkJoin, Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, defaultIfEmpty, map, shareReplay } from 'rxjs/operators';
+import { catchError, concatMap, defaultIfEmpty, map, shareReplay, tap } from 'rxjs/operators';
 
-import { StorageService } from './storage.service';
 import { AppConfig } from '../../environments/app-config';
+import { StorageService } from './storage.service';
+import { OrderService } from './order.service';
 
 export class INode {
   id: string; // ID
@@ -30,7 +32,8 @@ export class FileService {
       return forkJoin(
         Object.keys(node.data).map(fileId => this.getINode(node.data[fileId]))
       ).pipe(
-        defaultIfEmpty([])
+        tap(nodes => this.orderService.sort(nodes)),
+        defaultIfEmpty([]),
       );
     };
     return (refresh)
@@ -112,10 +115,17 @@ export class FileService {
     }
   }
 
-  private handleError(err) { }
+  private handleError(err) {
+    console.log(err);
+    this.matSnackBar.open('Network connection error', 'Close', {
+      duration: 2000,
+    });
+  }
 
   constructor(
-    private storageService: StorageService,
     private http: HttpClient,
+    private matSnackBar: MatSnackBar,
+    private storageService: StorageService,
+    private orderService: OrderService,
   ) { }
 }

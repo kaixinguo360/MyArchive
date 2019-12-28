@@ -41,14 +41,7 @@ export class DirComponent implements OnInit {
     private fileService: FileService,
     private popupService: FileViewer,
   ) {
-    this.router.events
-      .subscribe(
-        event => {
-          if (event instanceof  NavigationEnd) {
-            this.updateContent();
-          }
-        }
-      );
+    this.router.events.subscribe(event => (event instanceof NavigationEnd) ? this.updateContent() : null);
   }
 
   ngOnInit() {

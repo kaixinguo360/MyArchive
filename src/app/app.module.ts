@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatProgressBarModule } from '@angular/material';
+import { MatCardModule, MatMenuModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +22,7 @@ import { DirPreviewComponent } from './com/content-preview/dir-preview/dir-previ
 import { FilePreviewComponent } from './com/content-preview/file-preview/file-preview.component';
 import { ImagePreviewComponent } from './com/content-preview/image-preview/image-preview.component';
 import { FileDetailComponent } from './com/content-detail/file-detail/file-detail.component';
+import { OrderSelectorComponent } from './com/order-selector/order-selector.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement) {
@@ -42,6 +43,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     FilePreviewComponent,
     ImagePreviewComponent,
     FileDetailComponent,
+    OrderSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatMenuModule,
+    MatSnackBarModule,
   ],
   providers: [{
     provide: HAMMER_GESTURE_CONFIG,
