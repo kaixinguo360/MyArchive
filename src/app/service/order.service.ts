@@ -35,28 +35,21 @@ export class OrderService {
       this.preference.set('order', order);
     }
   }
-  public sort(nodes: INode[], dirFirst = true, order?: Order): INode[] {
-    nodes = nodes.sort((a, b) => {
-      switch (order ? order : this.getOrder()) {
-        case Order.TIME_ASC:
-          return b.ctime - a.ctime;
-        case Order.TIME_DESC:
-          return a.ctime - b.ctime;
-        case Order.NAME_DESC:
-          return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
-        case Order.NAME_ASC:
-          return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-        case Order.RANDOM:
-          return Math.random() > 0.5 ? -1 : 1;
-      }
-    });
-    if (dirFirst) { nodes = this.dirFirst(nodes, 'dir'); }
-    return nodes;
-  }
-  private dirFirst(nodes: INode[], dirType?: string): INode[] {
+  public sort(nodes: INode[], dirType = 'dir', order?: Order): INode[] {
     return nodes.sort((a, b) => {
       if (a.type === b.type || (a.type !== dirType && b.type !== dirType)) {
-        return 0;
+        switch (order ? order : this.getOrder()) {
+          case Order.TIME_ASC:
+            return b.ctime - a.ctime;
+          case Order.TIME_DESC:
+            return a.ctime - b.ctime;
+          case Order.NAME_DESC:
+            return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
+          case Order.NAME_ASC:
+            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+          case Order.RANDOM:
+            return Math.random() > 0.5 ? -1 : 1;
+        }
       } else {
         return (a.type === dirType) ? -1 : 1;
       }

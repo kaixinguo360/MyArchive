@@ -3,6 +3,11 @@
   text-align: center;
 }
 
+.img-container-loading {
+  min-width: 200px;
+  min-height: 200px;
+}
+
 .img {
   max-width: 100%;
   margin-bottom: -4px;
@@ -18,4 +23,10 @@
   right: 0;
   height: 30px;
   background: linear-gradient(to bottom, transparent, 70%, rgba(0,0,0,.26));
+}
+
+.icon {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
 }

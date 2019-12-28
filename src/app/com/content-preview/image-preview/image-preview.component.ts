@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import { INode } from '../../../service/file.service';
 import { ContentPreview } from '../content-preview';
@@ -8,17 +8,25 @@ import { ContentPreview } from '../content-preview';
   templateUrl: './image-preview.component.html',
   styleUrls: ['./image-preview.component.css']
 })
-export class ImagePreviewComponent implements ContentPreview {
+export class ImagePreviewComponent implements ContentPreview, OnInit {
   @Input() node: INode;
   @Input() width: number;
   @Input() height: number;
   @Input() maxWidth: number;
   @Input() maxHeight: number;
-  overflow = false;
   @ViewChild('img', { static: true }) imgRef: ElementRef;
   @ViewChild('container', { static: true }) containerRef: ElementRef;
+  overflow = false;
+  loading = true;
+  error = false;
+  isGIF = false;
+
+  ngOnInit(): void {
+    this.isGIF = 'gif' === this.node.name.trim().split('.').pop().toLowerCase();
+  }
 
   onload(): void {
     this.overflow = this.imgRef.nativeElement.offsetHeight > this.containerRef.nativeElement.offsetHeight;
+    this.loading = false;
   }
 }

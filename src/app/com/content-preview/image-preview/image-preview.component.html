@@ -1,7 +1,14 @@
 <div #container class="img-container hide-overflow"
-     [style.height]="height+'px'"
-     [style.max-height]="maxHeight+'px'">
+     [style.height.px]="height"
+     [style.max-height.px]="maxHeight"
+     [class.img-container-loading]="loading">
   <img #img class="img hide-overflow" [src]="node.data" [alt]="node.name"
-       (load)="onload()">
+       [hidden]="error"
+       (load)="onload()"
+       (error)="error=true">
+  <mat-icon class="file-icon icon" color="primary" *ngIf="loading&&!error">
+    {{isGIF?'gif':'photo'}}
+  </mat-icon>
+  <mat-icon class="file-icon icon" color="primary" *ngIf="error">broken_image</mat-icon>
   <div class="shadow" *ngIf="this.height||overflow"></div>
 </div>

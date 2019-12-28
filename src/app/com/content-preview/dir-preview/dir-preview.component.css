@@ -1,11 +1,20 @@
 .icon-container {
+  position: relative;
   width: 100%;
-  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.icon {
-  width: 100px;
-  height: 100px;
-  font-size: 100px;
-  margin: 40px 0;
+.file-icon {
+  margin: 50px;
+}
+
+.count {
+  position: absolute;
+  bottom: calc(50% + -26px);
+  left: calc(50% + -29px);
+  font-size: 25px;
+  color: #fafafa;
 }

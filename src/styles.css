@@ -12,3 +12,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .hide-overflow {
   overflow: hidden;
 }
+
+.file-icon {
+  min-width: 100px;
+  min-height: 100px;
+  font-size: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 64px rgb(234, 234, 234);
+  background: radial-gradient(#eaeaea, rgba(234, 234, 234, 0.1));
+}

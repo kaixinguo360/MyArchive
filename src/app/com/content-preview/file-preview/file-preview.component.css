@@ -1,11 +1,11 @@
 .icon-container {
   width: 100%;
-  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.icon {
-  width: 100px;
-  height: 100px;
-  font-size: 100px;
-  margin: 40px 0;
+.file-icon {
+  margin: 50px;
 }
