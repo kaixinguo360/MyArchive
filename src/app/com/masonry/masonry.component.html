@@ -1,5 +1,13 @@
-<div class="card-container">
-  <div *ngFor="let node of nodes" class="card-warp" (click)="click(node)">
-    <app-card [node]="node" [width]="300" [maxHeight]="500"></app-card>
-  </div>
-</div>
+<ngx-masonry #masonry
+  [options]="masonryOptions"
+  [style.width.px]="containerWidth"
+  class="card-container">
+  <ngxMasonryItem
+    class="card-warp"
+    (click)="click(node)"
+    [style.margin.px]="columnMargin"
+    [style.width]="isMobile?('calc('+100/mobileColumn+'% - '+columnMargin*2+'px)'):''"
+    *ngFor="let node of nodes">
+    <app-card [node]="node" [width]="columnWidth-columnMargin*2" [maxHeight]="500"></app-card>
+  </ngxMasonryItem>
+</ngx-masonry>

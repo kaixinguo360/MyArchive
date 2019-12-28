@@ -14,6 +14,9 @@ export class PreferenceService {
       return value;
     }
   }
+  public getNumber(key: string, defaultValue: number): number {
+    return Number(this.get(key, defaultValue.toString()));
+  }
   public set(key: string, value: string): void {
     localStorage.setItem(key, value);
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { concatMap, tap } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { catchError, concatMap, tap } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
 
 import { FileService, INode } from '../../service/file.service';
 import { FileViewer } from '../../com/file-viewer/file-viewer.component';
@@ -18,6 +18,7 @@ export class DirComponent implements OnInit {
   loading = true;
   nodes: INode[] = [];
   sub: Subscription;
+  error = false;
   @ViewChild('popupContainer', { read: ViewContainerRef, static: true }) popupContainerRef: ViewContainerRef;
 
   back() {
@@ -34,9 +35,14 @@ export class DirComponent implements OnInit {
       tap(nodes => this.nodes = nodes),
       concatMap(_ => this.fileService.getINode(this.id)),
       tap(node => this.parent = node.parent),
-      tap(_ => this.loading = false)
+      tap(_ => this.loading = false),
+      catchError(err => {
+        this.error = true;
+        return of(err);
+      } )
     ).subscribe();
   }
+  refresh() { location.reload(); }
 
   constructor(
     private route: ActivatedRoute,

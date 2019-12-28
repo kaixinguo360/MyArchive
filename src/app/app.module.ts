@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import * as Hammer from 'hammerjs';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -54,6 +55,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MatCardModule,
     AppRoutingModule,
     LayoutModule,
+    NgxMasonryModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,

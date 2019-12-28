@@ -13,7 +13,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   overflow: hidden;
 }
 
-.file-icon {
+.big-icon {
   min-width: 100px;
   min-height: 100px;
   font-size: 100px;
