@@ -6,7 +6,7 @@ export const AppConfig = {
   columnWidth: 240,
   columnMargin: 8,
   mobileWidth: 640,
-  defaultOrder: Order.TIME_DESC,
+  defaultOrder: Order.MTIME_DESC,
   defaultMobileColumn: 2,
 };
 

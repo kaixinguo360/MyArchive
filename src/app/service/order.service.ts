@@ -13,16 +13,13 @@ export class OrderService {
   public getOrder(): Order {
     const order = this.preference.get('order', this.defaultOrder);
     switch (order) {
-      case Order.TIME_DESC:
-        return Order.TIME_DESC;
-      case Order.TIME_ASC:
-        return Order.TIME_ASC;
-      case Order.NAME_DESC:
-        return Order.NAME_DESC;
-      case Order.NAME_ASC:
-        return Order.NAME_ASC;
-      case Order.RANDOM:
-        return Order.RANDOM;
+      case Order.MTIME_DESC: return Order.MTIME_DESC;
+      case Order.MTIME_ASC: return Order.MTIME_ASC;
+      case Order.CTIME_DESC: return Order.CTIME_DESC;
+      case Order.CTIME_ASC: return Order.CTIME_ASC;
+      case Order.NAME_DESC: return Order.NAME_DESC;
+      case Order.NAME_ASC: return Order.NAME_ASC;
+      case Order.RANDOM: return Order.RANDOM;
       default:
         this.preference.set('order', this.defaultOrder);
         return this.defaultOrder;
@@ -39,16 +36,13 @@ export class OrderService {
     return nodes.sort((a, b) => {
       if (a.type === b.type || (a.type !== dirType && b.type !== dirType)) {
         switch (order ? order : this.getOrder()) {
-          case Order.TIME_ASC:
-            return b.ctime - a.ctime;
-          case Order.TIME_DESC:
-            return a.ctime - b.ctime;
-          case Order.NAME_DESC:
-            return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
-          case Order.NAME_ASC:
-            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-          case Order.RANDOM:
-            return Math.random() > 0.5 ? -1 : 1;
+          case Order.MTIME_ASC: return a.mtime - b.mtime;
+          case Order.MTIME_DESC: return b.mtime - a.mtime;
+          case Order.CTIME_ASC: return a.ctime - b.ctime;
+          case Order.CTIME_DESC: return b.ctime - a.ctime;
+          case Order.NAME_ASC: return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+          case Order.NAME_DESC: return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
+          case Order.RANDOM: return Math.random() > 0.5 ? -1 : 1;
         }
       } else {
         return (a.type === dirType) ? -1 : 1;

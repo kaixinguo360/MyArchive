@@ -4,6 +4,7 @@
 <mat-menu #sortMenu xPosition="before">
   <button mat-menu-item
           *ngFor="let item of orderMenuItems"
+          [matTooltip]="item.tip"
           [class.menu-select]="item.order===currentOrder"
           (click)="changeOrder(item.order)">
     <mat-icon>{{item.icon}}</mat-icon>

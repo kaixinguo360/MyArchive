@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatMenuModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
+import { MatCardModule, MatMenuModule, MatProgressBarModule, MatSnackBarModule, MatTooltipModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -66,6 +66,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MatProgressBarModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatTooltipModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{
