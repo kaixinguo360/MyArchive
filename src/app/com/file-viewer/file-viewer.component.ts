@@ -14,6 +14,8 @@ export class FileViewerComponent implements OnInit {
   node: INode;
   @ViewChild('content', { read: ViewContainerRef, static: true }) contentHost: ViewContainerRef;
   private content: ContentDetail;
+  showLeftButton = false;
+  showRightButton = false;
 
   constructor(
     public fileViewer: FileViewer,
@@ -31,12 +33,8 @@ export class FileViewerComponent implements OnInit {
     this.content = (componentRef.instance as ContentDetail);
     this.content.node = this.node;
   }
-  next() {
-    this.index = (this.index + this.nodes.length + 1) % this.nodes.length;
-    this.loadContent();
-  }
-  previous() {
-    this.index = (this.index + this.nodes.length - 1) % this.nodes.length;
+  turnPage(num: number) {
+    this.index = (this.index + this.nodes.length + Math.round(num)) % this.nodes.length;
     this.loadContent();
   }
 

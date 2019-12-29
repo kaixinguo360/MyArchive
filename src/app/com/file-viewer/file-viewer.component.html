@@ -1,12 +1,24 @@
 <div class="overlay"
-     (swiperight)="previous()"
-     (swipeleft)="next()"
+     (swiperight)="showLeftButton=false;showRightButton=false;turnPage(-1)"
+     (swipeleft)="showLeftButton=false;showRightButton=false;turnPage(1)"
      (click)="fileViewer.close()">
+  <div class="side side-left"
+       (mouseenter)="showLeftButton=true"
+       (mouseleave)="showLeftButton=false"
+       (mousewheel)="turnPage($event.deltaY / 100)"
+       (click)="$event.stopPropagation();turnPage(-1)">
+    <button mat-icon-button class="button-left" *ngIf="showLeftButton">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  </div>
+  <div class="side side-right"
+       (mouseenter)="showRightButton=true"
+       (mouseleave)="showRightButton=false"
+       (mousewheel)="turnPage($event.deltaY / 100)"
+       (click)="$event.stopPropagation();turnPage(1)">
+    <button mat-icon-button class="button-right" *ngIf="showRightButton">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
   <ng-container #content></ng-container>
 </div>
-<button mat-icon-button class="button previous" (click)="previous()">
-  <mat-icon>arrow_back</mat-icon>
-</button>
-<button mat-icon-button class="button next" (click)="next()">
-  <mat-icon>arrow_forward</mat-icon>
-</button>

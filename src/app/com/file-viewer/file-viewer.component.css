@@ -9,22 +9,48 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: scroll;
   flex-wrap: wrap;
+  overflow: scroll;
 }
 
-.button {
+.side {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  max-width: 400px;
+  z-index: 11;
+  cursor: pointer;
+}
+
+.side-left {
+  left: 0;
+}
+
+.side-right {
+  right: 0;
+}
+
+button {
   position: absolute;
   top: 50%;
-  z-index: 11;
-  background: white;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  margin-top: -28px;
+  height: 56px;
+  width: 56px;
+  background: rgba(66,66,66,0.54);
+  border-radius: 28px;
 }
 
-.previous {
-  left: 36px;
+.button-left {
+  left: 28px;
 }
 
-.next {
-  right: 36px;
+.button-right {
+  right: 28px;
+}
+
+mat-icon {
+  font-size: 36px;
+  width: 36px;
+  color: white;
 }

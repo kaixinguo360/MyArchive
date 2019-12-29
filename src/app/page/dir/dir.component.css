@@ -20,16 +20,6 @@
   flex: 1 1 auto;
 }
 
-.error-icon {
-  position: absolute;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px);
+.alert-icon {
   cursor: pointer;
-}
-
-.error-info {
-  position: absolute;
-  top: calc(50% + 50px);
-  left: calc(50% - 36px);
-  font-size: 24px;
 }

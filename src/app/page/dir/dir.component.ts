@@ -26,6 +26,7 @@ export class DirComponent implements OnInit {
     window.history.back();
   }
   updateContent(refresh = false): void {
+    this.error = false;
     if (this.sub) { this.sub.unsubscribe(); }
     this.nodes.length = 0;
     const id = this.route.snapshot.queryParamMap.get('id');
