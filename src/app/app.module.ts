@@ -21,12 +21,14 @@ import { CardFootComponent } from './com/card/card-foot/card-foot.component';
 import { CardComponent } from './com/card/card.component';
 import { MasonryComponent } from './com/masonry/masonry.component';
 import { FileViewerComponent } from './com/file-viewer/file-viewer.component';
+import { OrderSelectorComponent } from './com/order-selector/order-selector.component';
 
 import { DirPreviewComponent } from './com/content-preview/dir-preview/dir-preview.component';
 import { FilePreviewComponent } from './com/content-preview/file-preview/file-preview.component';
 import { ImagePreviewComponent } from './com/content-preview/image-preview/image-preview.component';
+import { VideoPreviewComponent } from './com/content-preview/video-preview/video-preview.component';
 import { FileDetailComponent } from './com/content-detail/file-detail/file-detail.component';
-import { OrderSelectorComponent } from './com/order-selector/order-selector.component';
+import { VideoDetailComponent } from './com/content-detail/video-detail/video-detail.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement) {
@@ -43,11 +45,13 @@ export class MyHammerConfig extends HammerGestureConfig  {
     CardFootComponent,
     MasonryComponent,
     FileViewerComponent,
+    OrderSelectorComponent,
     DirPreviewComponent,
     FilePreviewComponent,
     ImagePreviewComponent,
+    VideoPreviewComponent,
     FileDetailComponent,
-    OrderSelectorComponent,
+    VideoDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +83,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     DirPreviewComponent,
     FilePreviewComponent,
     ImagePreviewComponent,
+    VideoPreviewComponent,
     FileDetailComponent,
+    VideoDetailComponent,
   ]
 })
 export class AppModule {

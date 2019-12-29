@@ -27,8 +27,8 @@
     <div class="sidenav-content">
       <app-masonry [nodes]="nodes" *ngIf="!loading&&!error"></app-masonry>
       <mat-progress-bar mode="indeterminate" *ngIf="loading&&!error"></mat-progress-bar>
-      <mat-icon class="alert-icon big-icon" *ngIf="error" (click)="refresh()">refresh</mat-icon>
-      <span class="alert-info" *ngIf="error">Reload</span>
+      <mat-icon class="center-icon big-icon" *ngIf="error" (click)="refresh()">refresh</mat-icon>
+      <span class="center-info" *ngIf="error">Reload</span>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
