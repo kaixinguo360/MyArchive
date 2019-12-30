@@ -1,42 +1,25 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatMenuModule, MatProgressBarModule, MatSnackBarModule, MatTooltipModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { NgxMasonryModule } from 'ngx-masonry';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import * as Hammer from 'hammerjs';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from './material.module';
+import { ContentModule } from './content.module';
+
 import { DirComponent } from './page/dir/dir.component';
-import { CardFootComponent } from './com/card/card-foot/card-foot.component';
 import { CardComponent } from './com/card/card.component';
+import { CardFootComponent } from './com/card/card-foot/card-foot.component';
 import { MasonryComponent } from './com/masonry/masonry.component';
 import { FileViewerComponent } from './com/file-viewer/file-viewer.component';
 import { OrderSelectorComponent } from './com/order-selector/order-selector.component';
 
-import { DirPreviewComponent } from './com/content-preview/dir-preview/dir-preview.component';
-import { FilePreviewComponent } from './com/content-preview/file-preview/file-preview.component';
-import { ImagePreviewComponent } from './com/content-preview/image-preview/image-preview.component';
-import { VideoPreviewComponent } from './com/content-preview/video-preview/video-preview.component';
-import { FileDetailComponent } from './com/content-detail/file-detail/file-detail.component';
-import { VideoDetailComponent } from './com/content-detail/video-detail/video-detail.component';
-import { ImageDetailComponent } from './com/content-detail/image-detail/image-detail.component';
-
-export class MyHammerConfig extends HammerGestureConfig  {
-  buildHammer(element: HTMLElement) {
-    return new Hammer(element, {
-      touchAction: 'pan-y'
-    });
-  }
+export class HammerConfig extends HammerGestureConfig  {
+  buildHammer(element: HTMLElement) { return new Hammer(element, { touchAction: 'pan-y' }); }
 }
 
 @NgModule({
@@ -47,51 +30,23 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MasonryComponent,
     FileViewerComponent,
     OrderSelectorComponent,
-    DirPreviewComponent,
-    FilePreviewComponent,
-    ImagePreviewComponent,
-    VideoPreviewComponent,
-    FileDetailComponent,
-    ImageDetailComponent,
-    VideoDetailComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatCardModule,
     AppRoutingModule,
     LayoutModule,
     NgxMasonryModule,
-    LazyLoadImageModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatMenuModule,
-    MatSnackBarModule,
-    MatTooltipModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ContentModule,
+    MaterialModule,
   ],
   providers: [{
     provide: HAMMER_GESTURE_CONFIG,
-    useClass: MyHammerConfig
+    useClass: HammerConfig
   }],
-  bootstrap: [DirComponent],
-  entryComponents: [
-    FileViewerComponent,
-    DirPreviewComponent,
-    FilePreviewComponent,
-    ImagePreviewComponent,
-    VideoPreviewComponent,
-    FileDetailComponent,
-    ImageDetailComponent,
-    VideoDetailComponent,
-  ]
+  bootstrap: [ DirComponent ],
+  entryComponents: [ FileViewerComponent ]
 })
-export class AppModule {
-  constructor() {
-  }
-}
+export class AppModule { }

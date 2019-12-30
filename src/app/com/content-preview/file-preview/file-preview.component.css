@@ -1,4 +1,5 @@
 .icon-container {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,4 +9,16 @@
 
 .big-icon {
   margin: 50px;
+}
+
+.ext {
+  position: absolute;
+  top: calc(50% + 10px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  color: #fafafa;
+  background: #673ab7;
+  padding: 3px;
+  border-radius: 8px;
 }
