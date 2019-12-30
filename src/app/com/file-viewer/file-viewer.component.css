@@ -31,7 +31,7 @@
   right: 0;
 }
 
-button {
+.nav-button {
   position: absolute;
   top: 50%;
   margin-top: -28px;
@@ -41,16 +41,47 @@ button {
   border-radius: 28px;
 }
 
-.button-left {
+.nav-button-left {
   left: 28px;
 }
 
-.button-right {
+.nav-button-right {
   right: 28px;
 }
 
-mat-icon {
+.nav-icon {
   font-size: 36px;
   width: 36px;
   color: white;
+}
+
+.tool-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30%;
+  max-width: 400px;
+  height: 64px;
+  z-index: 12;
+  display: flex;
+  box-sizing: border-box;
+  padding: 0 16px;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.tool-button {
+  color: white;
+  background: rgba(66,66,66,0.54);
+}
+
+.tool-bar-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 9;
+  background: #673ab7;
 }

@@ -6,9 +6,9 @@
        [hidden]="error"
        (load)="onload()"
        (error)="error=true">
-  <mat-icon class="big-icon icon" color="primary" *ngIf="loading&&!error">
+  <mat-icon class="big-icon center-icon" color="primary" *ngIf="loading&&!error">
     {{isGIF?'gif':'photo'}}
   </mat-icon>
-  <mat-icon class="big-icon icon" color="primary" *ngIf="error">broken_image</mat-icon>
+  <mat-icon class="big-icon center-icon" color="primary" *ngIf="error">broken_image</mat-icon>
   <div class="shadow" *ngIf="this.height||overflow"></div>
 </div>

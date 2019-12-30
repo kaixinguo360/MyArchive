@@ -3,6 +3,7 @@ import { DirPreviewComponent } from '../app/com/content-preview/dir-preview/dir-
 import { FilePreviewComponent } from '../app/com/content-preview/file-preview/file-preview.component';
 import { ImagePreviewComponent } from '../app/com/content-preview/image-preview/image-preview.component';
 import { VideoPreviewComponent } from '../app/com/content-preview/video-preview/video-preview.component';
+import { ImageDetailComponent } from '../app/com/content-detail/image-detail/image-detail.component';
 import { VideoDetailComponent } from '../app/com/content-detail/video-detail/video-detail.component';
 
 export const TypeInfos: Map<string, TypeInfo> = new Map<string, TypeInfo>();
@@ -25,7 +26,7 @@ TypeInfos.set('img', {
   name: 'Image File',
   id: 'img',
   preview: ImagePreviewComponent,
-  detail: ImagePreviewComponent,
+  detail: ImageDetailComponent,
   icon: 'photo',
   ext: /jpg|jpeg|png|gif|bmp|webp/,
 });

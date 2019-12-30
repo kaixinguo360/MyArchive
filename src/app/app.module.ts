@@ -29,6 +29,7 @@ import { ImagePreviewComponent } from './com/content-preview/image-preview/image
 import { VideoPreviewComponent } from './com/content-preview/video-preview/video-preview.component';
 import { FileDetailComponent } from './com/content-detail/file-detail/file-detail.component';
 import { VideoDetailComponent } from './com/content-detail/video-detail/video-detail.component';
+import { ImageDetailComponent } from './com/content-detail/image-detail/image-detail.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement) {
@@ -51,6 +52,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ImagePreviewComponent,
     VideoPreviewComponent,
     FileDetailComponent,
+    ImageDetailComponent,
     VideoDetailComponent,
   ],
   imports: [
@@ -85,6 +87,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ImagePreviewComponent,
     VideoPreviewComponent,
     FileDetailComponent,
+    ImageDetailComponent,
     VideoDetailComponent,
   ]
 })
