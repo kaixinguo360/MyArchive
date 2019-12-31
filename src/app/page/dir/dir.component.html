@@ -2,17 +2,17 @@
   <mat-sidenav-content class="sidenav-container">
     <mat-toolbar color="primary" class="sidenav-toolbar">
       <button type="button" mat-icon-button
-              *ngIf="parent && !loading"
+              *ngIf="node"
               routerLink="dir"
-              [queryParams]="{id:parent}">
+              [queryParams]="{id:node.parent}">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <button type="button" mat-icon-button
-              *ngIf="loading"
+              *ngIf="!node"
               (click)="back()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <span class="title">{{id}}</span>
+      <span class="title">{{error?'Error!':(node?node.name:'Loading...')}}</span>
       <app-order-selector></app-order-selector>
       <button type="button" mat-icon-button
               (click)="updateContent(true)">
@@ -25,8 +25,8 @@
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="sidenav-content">
-      <app-masonry [nodes]="nodes" *ngIf="!loading&&!error"></app-masonry>
-      <mat-progress-bar mode="indeterminate" *ngIf="loading&&!error"></mat-progress-bar>
+      <app-masonry [nodes]="nodes" *ngIf="node&&!error"></app-masonry>
+      <mat-progress-bar mode="indeterminate" *ngIf="!node&&!error"></mat-progress-bar>
       <mat-icon class="center-icon big-icon" *ngIf="error" (click)="refresh()">refresh</mat-icon>
       <span class="center-info" *ngIf="error">Reload</span>
     </div>

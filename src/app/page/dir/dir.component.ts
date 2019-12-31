@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { catchError, concatMap, tap } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
 
+import { AppConfig } from '../../../environments/app-config';
 import { FileService, INode } from '../../service/file.service';
 import { FileViewer } from '../../com/file-viewer/file-viewer.component';
 
@@ -14,8 +15,7 @@ import { FileViewer } from '../../com/file-viewer/file-viewer.component';
 export class DirComponent implements OnInit {
 
   id;
-  parent;
-  loading = true;
+  node;
   nodes: INode[] = [];
   sub: Subscription;
   error = false;
@@ -29,14 +29,13 @@ export class DirComponent implements OnInit {
     this.error = false;
     if (this.sub) { this.sub.unsubscribe(); }
     this.nodes.length = 0;
-    const id = this.route.snapshot.queryParamMap.get('id');
-    this.loading = true;
-    this.id = !id ? '/' : id === '' ? '/' : id;
+    this.id = this.route.snapshot.queryParamMap.get('id');
+    this.id = !this.id ? AppConfig.defaultId : this.id === '' ? AppConfig.defaultId : this.id;
+    this.node = null;
     this.sub = this.fileService.getDir(this.id, refresh).pipe(
       tap(nodes => this.nodes = nodes),
       concatMap(_ => this.fileService.getINode(this.id)),
-      tap(node => this.parent = node.parent),
-      tap(_ => this.loading = false),
+      tap(node => this.node = node),
       catchError(err => {
         this.error = true;
         return of(err);

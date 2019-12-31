@@ -18,7 +18,7 @@ export class StorageService {
   }
 
   public removeItem(key: string): Observable<void> {
-    return (key === '/')
+    return (key === AppConfig.defaultId)
       ? from(this.ngf.clear())
       : from(this.ngf.removeItem(key));
   }

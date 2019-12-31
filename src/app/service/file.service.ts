@@ -24,33 +24,20 @@ export class INode {
 })
 export class FileService {
 
-  private root = AppConfig.apiRoot;
-  private fetching: Map<string, Observable<INode[]>> = new Map();
+  private apiUrl = AppConfig.apiUrl;
 
   public getDir(id: string, refresh = false): Observable<INode[]> {
-    const handler = node => {
-      return forkJoin(
-        Object.keys(node.data).map(fileId => this.getINode(node.data[fileId]))
-      ).pipe(
-        tap(nodes => this.orderService.sort(nodes)),
-        defaultIfEmpty([]),
-      );
-    };
-    return (refresh)
-      ? this.removeINode(id).pipe(
-        concatMap(_ => this.fetchINode(id)),
-        concatMap(handler)
-      ) : this.getINode(id).pipe(
-        concatMap(handler)
-      );
+    const ob = this.getINode(id).pipe(
+      concatMap(node => this.fetchINodes(node.data)),
+      map(nodes => this.orderService.sort(nodes)),
+    );
+    return refresh ? this.storageService.removeItem(id).pipe(concatMap(_ => ob)) : ob;
   }
   public getINode(id: string, refresh = false): Observable<INode> {
-    return (refresh)
-      ? this.removeINode(id).pipe(
-        concatMap(_ => this.fetchINode(id))
-      ) : this.storageService.getItem<INode>(id).pipe(
-        concatMap(node => node ? of(node) : this.fetchINode(id))
-      );
+    const ob = this.storageService.getItem(id).pipe(
+      concatMap(node => node ? of(node) : this.fetchINode(id)),
+    );
+    return refresh ? this.storageService.removeItem(id).pipe(concatMap(_ => ob)) : ob;
   }
   public removeINode(id: string): Observable<void> {
     return this.storageService.getItem<INode>(id).pipe(
@@ -65,54 +52,31 @@ export class FileService {
     );
   }
 
-  private setINode(id: string, node: INode): Observable<INode> {
-    return this.storageService.setItem<INode>(id, node);
-  }
-  private fetchDir(path: string): Observable<INode[]> {
-    if (this.fetching.has(path)) {
-      return this.fetching.get(path);
-    } else {
-      const ob = this.http.get<INode[]>(this.root + path).pipe(
-        concatMap(nodes => {
-          const obs = [];
-          nodes.forEach(node => {
-            obs.push(this.setINode(node.id, node));
-          });
-          this.fetching.delete(path);
-          return forkJoin(obs);
-        }),
-        catchError(err => {
-          this.handleError(err);
-          return throwError(err);
-        }),
-        shareReplay(1),
-      );
-      this.fetching.set(path, ob);
-      return ob;
-    }
-  }
   private fetchINode(id: string): Observable<INode> {
-    if (id === '/') {
-      return this.fetchDir('/').pipe(
-        concatMap(nodes => {
-          const rootNode: INode = {
-            id: '/', name: '/',
-            atime: 0, mtime: 0, ctime: 0,
-            parent: null,
-            type: '/',
-            data: []
-          };
-          nodes.forEach(n => rootNode.data[n.name] = n.id);
-          return this.setINode('/', rootNode);
-        })
-      );
-    } else {
-      const idx = id.lastIndexOf('/');
-      const path = (idx < 0) ? '/' : id.substr(0, idx);
-      return this.fetchDir(path).pipe(
-        map(nodes => nodes.find(node => node.id === id))
-      );
-    }
+    return this.http.post<INode[]>(this.apiUrl, [ id ]).pipe(
+      concatMap(nodes => this.storageService.setItem(id, nodes[0])),
+      catchError(err => {
+        this.handleError(err);
+        return throwError(err);
+      }),
+      shareReplay(1),
+    );
+  }
+  private fetchINodes(ids: { [key: string]: string }): Observable<INode[]> {
+    const obs: Observable<any>[] = [];
+    const cached: INode[] = [];
+    const uncached: string[] = [];
+    Object.values(ids).forEach(id => obs.push(this.storageService.getItem(id).pipe(
+      tap(node => node ? cached.push(node) : uncached.push(id)),
+    )));
+    return forkJoin(obs).pipe(
+      concatMap(() => !uncached.length ? of(cached) :
+        this.http.post<INode[]>(this.apiUrl, uncached).pipe(
+          tap(nodes => nodes.forEach(n => this.storageService.setItem(n.id, n))),
+          map(nodes => cached.concat(nodes)),
+        )
+      ),
+    );
   }
 
   private handleError(err) {
